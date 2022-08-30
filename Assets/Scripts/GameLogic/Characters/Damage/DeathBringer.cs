@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UniRx;
+using Leopotam.Ecs;
 
 public class DeathBringer : MonoBehaviour
 {
@@ -14,10 +15,12 @@ public class DeathBringer : MonoBehaviour
 
     [SerializeField] private float _dieTime = 1.5f;
 
-    private void Start()
+    public void Construct(EcsEntity entity)
     {
         _isAlive = true;
         _spawnPoint = transform.position;
+
+        entity.Get<DeathComponent>().DeathBringer = this;
     }
 
     public virtual void Die(bool withDestroy)
@@ -44,8 +47,4 @@ public class DeathBringer : MonoBehaviour
     }
 }
 
-public class DamageTaker : MonoBehaviour
-{
-
-}
 

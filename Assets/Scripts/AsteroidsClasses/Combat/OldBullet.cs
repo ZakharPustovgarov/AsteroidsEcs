@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Класс пули
-public class Bullet : DoDamage
+public class OldBullet : DoDamage
 {
     // Время до самоуничтожения
     [SerializeField]

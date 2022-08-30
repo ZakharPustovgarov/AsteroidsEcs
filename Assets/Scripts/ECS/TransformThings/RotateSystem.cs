@@ -1,4 +1,5 @@
 ﻿using Leopotam.Ecs;
+using UnityEngine;
 
 sealed class RotateSystem : IEcsRunSystem
 {
@@ -8,6 +9,24 @@ sealed class RotateSystem : IEcsRunSystem
 
     public void Run()
     {
-        throw new System.NotImplementedException();
+        if(_rotateFilter.IsEmpty())
+        {
+            return;
+        }
+
+        foreach(var i in _rotateFilter)
+        {
+            ref var trans = ref _rotateFilter.Get2(i).MyTransfrom;
+            ref var rotate = ref _rotateFilter.Get1(i).RotateType;
+
+            if(rotate == RotateType.LEFT)
+            {
+                trans.Rotate(0, 0, _gameData.RotateSpeed * Time.deltaTime);
+            }
+            else if(rotate == RotateType.RIGHT)
+            {
+                trans.Rotate(0, 0, -_gameData.RotateSpeed * Time.deltaTime);
+            }
+        }
     }
 }

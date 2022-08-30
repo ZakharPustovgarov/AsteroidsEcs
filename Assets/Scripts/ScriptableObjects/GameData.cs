@@ -14,17 +14,27 @@ public class GameData : ScriptableObject
     public float FlyingSpeed = 10f;
     public float RotateSpeed = 5f;
 
-    public GameObject PolyBulletPrefab;
-    public GameObject SpriteBulletPrefab;
+    public float BulletFlyingSpeed = 15f;
 
-    public GameObject PolyLaserPrefab;
-    public GameObject SpriteLaserPrefab;
+    public float UfoSpawnTime = 7f;
+    public float UfoFlyingSpeed = 6f;
 
-    public GameObject PolyUfoPrefab;
-    public GameObject SpriteUfoPrefab;
+    public float AsteroidSpawnTime = 5f;
+    public float BigAsteroidSpeed = 2f;
+    public int MaxSmallAsteroids = 3;
+    public float SmallAsteroidSpeed = 4f;
 
-    public GameObject PolyBigAsteroidPrefab;
-    public GameObject SpriteBigAsteroidPrefab;
-    public GameObject PolySmallAsteroidPrefab; 
-    public GameObject SpriteSmallAsteroidPrefab;
+    public int ScoreForUFO = 15;
+    public int ScoreForBigAsteroid = 10;
+    public int ScoreForSmall = 5;
+
+    public Bullet BulletPrefab;
+
+    public Laser LaserPrefab;
+
+    public UfoEcs UfoPrefab;
+
+    public AsteroidEcs BigAsteroidPrefab;
+
+    public AsteroidEcs SmallAsteroidPrefab; 
 }

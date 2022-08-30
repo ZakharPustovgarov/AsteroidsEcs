@@ -1,7 +1,7 @@
 ﻿using Leopotam.Ecs;
 using UnityEngine;
 
-sealed class PlayerInputSystem : IEcsRunSystem
+sealed class PlayerKeyboardInputSystem : IEcsRunSystem
 {
 
     private readonly EcsFilter<PlayerTag, TransformComponent>.Exclude<IsDeathTag> _playerFilter = null;
@@ -21,7 +21,19 @@ sealed class PlayerInputSystem : IEcsRunSystem
         foreach (var i in _playerFilter)
         {
             ref var entity = ref _playerFilter.GetEntity(i);
- 
+
+            if (inputData.IsRotatingLeft) entity.Get<RotateComponent>().RotateType = RotateType.LEFT;
+
+            if (inputData.IsRotatingRight) entity.Get<RotateComponent>().RotateType = RotateType.RIGHT;
+
+            if (inputData.IsMovingForward)
+            {
+                entity.Get<DirectionComponent>().Direction = _playerFilter.Get2(i).MyTransfrom.up;
+                entity.Get<MoveSpeedComponent>().Speed = _gameData.FlyingSpeed;
+            }
+
+            if (inputData.IsFiringBullets) entity.Get<GunFireEvent>().FireType = FireType.BULLET;
+            if (inputData.IsFiringLaser) entity.Get<GunFireEvent>().FireType = FireType.LASER;
         }
     }
 
