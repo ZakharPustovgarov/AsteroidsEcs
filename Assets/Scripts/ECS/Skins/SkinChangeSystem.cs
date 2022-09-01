@@ -10,7 +10,19 @@ sealed class SkinChangeSystem : IEcsRunSystem
 
     public void Run()
     {
-        if (_eventFilter.IsEmpty() || _changersFilter.IsEmpty()) return;
+        if(_changersFilter.IsEmpty()) return;
+
+        foreach(var i in _changersFilter)
+        {
+            ref var changer = ref _changersFilter.Get1(i);
+
+            if(changer.GraphicType == GraphicType.NONE)
+            {
+                changer.SkinChanger.ChangeGraphic(_graphicType);
+            }
+        }
+
+        if (_eventFilter.IsEmpty()) return; 
 
         if(_graphicType == GraphicType.SPRITE)
         {

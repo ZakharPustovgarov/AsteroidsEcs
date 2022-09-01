@@ -200,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: {fileID: 6170311190835008797}
   _deathBringer: {fileID: 6418999791082240055}
+  _damageObj: {fileID: 5890066182315086117}
 --- !u!114 &6170311190835008797
 MonoBehaviour:
   m_ObjectHideFlags: 0

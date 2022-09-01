@@ -7,6 +7,7 @@ sealed class CounterSystem : IEcsRunSystem
     private readonly EcsFilter<CounterComponent> _counterFilter = null;
     private readonly EcsFilter<UfoSpawnCounterComponent> _ufoSpawnFilter = null;
     private readonly EcsFilter<AsteroidSpawnCounterComponent> _asteroidSpawnFilter = null;
+    private readonly EcsFilter<LaserRechargeCounterComponent> _laserRechargeFilter = null;
 
     public void Run()
     {
@@ -31,11 +32,10 @@ sealed class CounterSystem : IEcsRunSystem
             block.Duration -= Time.deltaTime;
             //UnityEngine.Debug.Log("Ressurect duartion: " + block.Duration);
             if (block.Duration <= 0)
-            {
-                
+            {            
                 ref var entity = ref _ufoSpawnFilter.GetEntity(i);
-                entity.Del<UfoSpawnCounterComponent>();
                 entity.Get<UfoSpawnCountEndEvent>();
+                entity.Del<UfoSpawnCounterComponent>();
             }
         }
 
@@ -48,8 +48,22 @@ sealed class CounterSystem : IEcsRunSystem
             {
 
                 ref var entity = ref _asteroidSpawnFilter.GetEntity(i);
-                entity.Del<AsteroidSpawnCounterComponent>();
                 entity.Get<AsteroidSpawnCountEndEvent>();
+                entity.Del<AsteroidSpawnCounterComponent>();         
+            }
+        }
+
+        foreach (var i in _laserRechargeFilter)
+        {
+            ref var block = ref _laserRechargeFilter.Get1(i);
+            block.Duration -= Time.deltaTime;
+            //UnityEngine.Debug.Log("Ressurect duartion: " + block.Duration);
+            if (block.Duration <= 0)
+            {
+
+                ref var entity = ref _laserRechargeFilter.GetEntity(i);
+                entity.Del<LaserRechargeCounterComponent>();
+                entity.Get<LaserRechargeCountEnd>();
             }
         }
     }

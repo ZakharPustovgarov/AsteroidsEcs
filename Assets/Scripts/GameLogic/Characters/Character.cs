@@ -15,18 +15,23 @@ public class Character : MonoBehaviour
 
     protected virtual void Start()
     {
-        _world = WorldHandler.GetWorld();
-
         AddComponents();
     }
 
     protected virtual void AddComponents()
     {
+        _world = WorldHandler.GetWorld();
         _entity = _world.NewEntity();
 
         _entity.Get<TransformComponent>().MyTransfrom = transform;
 
         _health.Construct(_entity);
         _deathBringer.Construct(_entity);
+        _deathBringer.DiedEvent += OnDeath;
+    }
+    
+    protected void OnDeath()
+    {
+        if(_entity.IsAlive()) _entity.Destroy();
     }
 }

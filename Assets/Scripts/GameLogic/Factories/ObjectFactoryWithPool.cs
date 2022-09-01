@@ -18,7 +18,7 @@ public class ObjectFactoryWithPool<T> where T : MonoBehaviour
     {
         T prefab = null;
 
-        prefab = GameObject.Instantiate<T>(prefab);
+        prefab = GameObject.Instantiate<T>(_prefab);
 
         return prefab;
     }

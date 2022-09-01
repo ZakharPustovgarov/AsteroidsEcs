@@ -14,9 +14,10 @@ sealed class ScoreSystem : IEcsRunSystem
     {
         if (_addingFilter.IsEmpty() || _textsFilter.IsEmpty()) return;
 
-        foreach(var i in _textsFilter)
+        foreach(var i in _addingFilter)
         {
             _score += _addingFilter.Get1(i).Score;
+            _addingFilter.GetEntity(i).Destroy();
         }
 
         foreach(var i in _textsFilter)

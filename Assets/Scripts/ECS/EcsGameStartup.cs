@@ -51,13 +51,15 @@ public class EcsGameStartup : MonoBehaviour
     private void AddSystems()
     {
         _systems
+            .Add(new BlocksSystem())
             .Add(new CounterSystem())
-            .Add(new AsteroidSpawnSystem())
+            .Add(new AsteroidSpawnSystem(_asteroidsBigFactory))
             .Add(new UfoSpawnSystem())
             .Add(new PlayerKeyboardInputSystem())
             .Add(new EnemyTrackSystem())
             .Add(new SkinChangeSystem())
             .Add(new RotateSystem())
+            .Add(new LaserRechargeSystem())
             .Add(new GunFireSystem())
             .Add(new BulletFlySystem())
             .Add(new BulletStopSystem())
@@ -66,8 +68,9 @@ public class EcsGameStartup : MonoBehaviour
             .Add(new DamageSystem())
             .Add(new ScoreAddingCalculationSystem())
             .Add(new AsteroidShatterSystem(_asteroidsSmallFactory))
-            .Add(new DeathSystem())
             .Add(new ScoreSystem())
+            .Add(new FinishSystem())
+            .Add(new DeathSystem())
             ;
     }
 
@@ -80,13 +83,17 @@ public class EcsGameStartup : MonoBehaviour
         _systems.Inject(_laserFactory);
 
         _systems.Inject(_ufoFactory);
-        _systems.Inject(_asteroidsBigFactory);
     }
 
     private void AddOneFrames()
     {
         _systems
             .OneFrame<DirectionComponent>()
+            .OneFrame<RotateComponent>()
+            .OneFrame<AsteroidSpawnCountEndEvent>()
+            .OneFrame<UfoSpawnCountEndEvent>()
+            .OneFrame<LaserRechargeCountEnd>()
+            .OneFrame<GunFireEvent>()
             ;
     }
 

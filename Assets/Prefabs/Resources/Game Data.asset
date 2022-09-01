@@ -17,13 +17,23 @@ MonoBehaviour:
   FireLaserKey: 258
   RotateLeftKey: 113
   RotateRightKey: 101
-  FlyingSpeed: 10
-  RotateSpeed: 5
-  UfoFlyingSpeed: 6
-  BigAsteroidSpeed: 2
+  FlyingSpeed: 5
+  RotateSpeed: 120
+  LaserCooldown: 4
+  BulletCooldown: 0.1
+  BulletFlyingSpeed: 10
+  UfoSpawnTime: 7
+  UfoFlyingSpeed: 2
+  AsteroidSpawnTime: 5
+  BigAsteroidSpeed: 1
+  MaxSmallAsteroids: 3
   SmallAsteroidSpeed: 4
+  ScoreForUFO: 15
+  ScoreForBigAsteroid: 10
+  ScoreForSmall: 5
+  LaserRechargeTime: 15
   BulletPrefab: {fileID: 1675116719650415938, guid: b746d163257aa734ea83f14f5d34aa02, type: 3}
   LaserPrefab: {fileID: 274107667027846933, guid: 376a9f42d0c025545901b28bd01378f8, type: 3}
   UfoPrefab: {fileID: 9054797025069952439, guid: ba6109d8e5ad0d046877d3291d31aa88, type: 3}
-  BigAsteroidPrefab: {fileID: 4115132723896297327, guid: 9101a685868ba814591f63fcc57c2d09, type: 3}
+  BigAsteroidPrefab: {fileID: 6773651229141142052, guid: 9101a685868ba814591f63fcc57c2d09, type: 3}
   SmallAsteroidPrefab: {fileID: 93719744733477137, guid: ab2b202cce83ed240b75f69cbdb75db5, type: 3}

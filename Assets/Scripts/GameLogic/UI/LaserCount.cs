@@ -14,7 +14,7 @@ public class LaserCount : MonoBehaviour
     private void Start()
     {
         _world = WorldHandler.GetWorld();
+        var entity = _world.NewEntity().Get<LaserCounterComponent>().Text = _text;
     }
-
 
 }

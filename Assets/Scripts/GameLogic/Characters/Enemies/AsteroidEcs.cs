@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidEcs : Character
+public class AsteroidEcs : EnemyEcs
 {
     [SerializeField] private bool _isBig;
     [SerializeField] private List<Transform> _shatterPoints;

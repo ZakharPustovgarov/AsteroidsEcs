@@ -1,6 +1,7 @@
 ﻿public enum GraphicType
 {
     POLY,
-    SPRITE
+    SPRITE,
+    NONE
 }
 

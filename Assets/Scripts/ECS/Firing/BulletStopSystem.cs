@@ -32,8 +32,8 @@ sealed class BulletStopSystem : IEcsRunSystem
                     //Debug.Log("Death - " + bulletTransform.name + ", color - " + _bulletsFilter.Get2(i).Color);
                     entity.Destroy();
                     entityDeath.Destroy();
-
-                    //_bulletFactory.Despawn(bullet);
+                    //Debug.Log("Bullet despawned");
+                    _bulletFactory.Despawn(bullet);
                     break;
                 }
             }

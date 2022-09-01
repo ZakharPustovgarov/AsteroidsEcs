@@ -182,6 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: {fileID: 6470419936754958381}
   _deathBringer: {fileID: 1155411342443282173}
+  _damageObj: {fileID: 8860011265344429976}
   _isBig: 0
   _shatterPoints: []
 --- !u!114 &6470419936754958381

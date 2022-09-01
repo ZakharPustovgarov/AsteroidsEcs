@@ -1,5 +1,6 @@
 ﻿using System;
 using Leopotam.Ecs;
+using UnityEngine;
 
 sealed class EnemyTrackSystem : IEcsRunSystem
 {
@@ -19,7 +20,7 @@ sealed class EnemyTrackSystem : IEcsRunSystem
             ref var entity = ref _ufoFilter.GetEntity(i);
             ref var ufoTrans = ref _ufoFilter.Get2(i).MyTransfrom;
 
-            entity.Get<DirectionComponent>().Direction = playerTrans.position - ufoTrans.position;
+            entity.Get<DirectionComponent>().Direction = Vector3.Normalize(playerTrans.position - ufoTrans.position);
             entity.Get<MoveSpeedComponent>().Speed = _gameData.UfoFlyingSpeed;
         }
     }

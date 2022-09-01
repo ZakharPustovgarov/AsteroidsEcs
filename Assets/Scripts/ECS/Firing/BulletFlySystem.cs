@@ -3,7 +3,7 @@ using Leopotam.Ecs;
 
 sealed class BulletFlySystem : IEcsRunSystem
 {
-    private readonly EcsFilter<BulletComponent, DirectionComponent, TransformComponent, BulletLifeTime> _bulletFilter = null;
+    private readonly EcsFilter<BulletComponent, ConstantDirection, TransformComponent, BulletLifeTime> _bulletFilter = null;
 
     private EcsWorld _world = null;
     public void Run()
@@ -24,6 +24,7 @@ sealed class BulletFlySystem : IEcsRunSystem
                 var entity = _world.NewEntity();
                 entity.Get<BulletHitTag>();
                 entity.Get<TransformComponent>().MyTransfrom = transform.MyTransfrom;
+                
                 continue;
             }
 

@@ -14,6 +14,8 @@ public class GameData : ScriptableObject
     public float FlyingSpeed = 10f;
     public float RotateSpeed = 5f;
 
+    public float LaserCooldown = 4f;
+    public float BulletCooldown = 0.1f;
     public float BulletFlyingSpeed = 15f;
 
     public float UfoSpawnTime = 7f;
@@ -27,6 +29,8 @@ public class GameData : ScriptableObject
     public int ScoreForUFO = 15;
     public int ScoreForBigAsteroid = 10;
     public int ScoreForSmall = 5;
+
+    public float LaserRechargeTime = 15f;
 
     public Bullet BulletPrefab;
 

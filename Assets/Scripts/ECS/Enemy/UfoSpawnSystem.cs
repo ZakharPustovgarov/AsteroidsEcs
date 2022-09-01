@@ -19,7 +19,7 @@ sealed class UfoSpawnSystem : IEcsRunSystem, IEcsInitSystem
 
     public void Run()
     {
-        if (_spawnFilter.IsEmpty() && _spawnPointsFilter.IsEmpty()) return;
+        if (_spawnFilter.IsEmpty() || _spawnPointsFilter.IsEmpty()) return;
 
         List<Transform> spawnPoints = new List<Transform>();
 
@@ -30,8 +30,9 @@ sealed class UfoSpawnSystem : IEcsRunSystem, IEcsInitSystem
 
         foreach (var i in _spawnFilter)
         {
-            Transform trans = _ufoFactory.Spawn().transform;
-
+            UfoEcs ufo = _ufoFactory.Spawn();
+            Transform trans = ufo.transform;
+            ufo.Initialize();
             int randomIndex = Random.Range(0, spawnPoints.Count);
             trans.position = spawnPoints[randomIndex].position;
             spawnPoints.RemoveAt(randomIndex);

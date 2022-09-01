@@ -32,8 +32,16 @@ sealed class PlayerKeyboardInputSystem : IEcsRunSystem
                 entity.Get<MoveSpeedComponent>().Speed = _gameData.FlyingSpeed;
             }
 
-            if (inputData.IsFiringBullets) entity.Get<GunFireEvent>().FireType = FireType.BULLET;
-            if (inputData.IsFiringLaser) entity.Get<GunFireEvent>().FireType = FireType.LASER;
+            if (inputData.IsFiringBullets)
+            {
+                //Debug.Log("Setted fire event for bullet");
+                entity.Get<GunFireEvent>().FireType = FireType.BULLET;
+            }
+            if (inputData.IsFiringLaser)
+            {
+                //Debug.Log("Setted fire event for laser");
+                entity.Get<GunFireEvent>().FireType = FireType.LASER; 
+            }
         }
     }
 
@@ -41,13 +49,16 @@ sealed class PlayerKeyboardInputSystem : IEcsRunSystem
     {
         var inputData = new InputData();
 
-        if (Input.GetKeyDown(_gameData.FlyForwardKey)) inputData.IsMovingForward = true;
+        if (Input.GetKey(_gameData.FlyForwardKey)) inputData.IsMovingForward = true;
         
-        if (Input.GetKeyDown(_gameData.RotateLeftKey)) inputData.IsRotatingLeft = true;
+        if (Input.GetKey(_gameData.RotateLeftKey)) inputData.IsRotatingLeft = true;
 
-        if (Input.GetKeyDown(_gameData.RotateRightKey)) inputData.IsRotatingRight = true;
+        if (Input.GetKey(_gameData.RotateRightKey)) inputData.IsRotatingRight = true;
 
-        if (Input.GetKeyDown(_gameData.FireBulletKey)) inputData.IsFiringBullets = true;
+        if (Input.GetKey(_gameData.FireBulletKey))
+        {
+            inputData.IsFiringBullets = true;
+        }
 
         if (Input.GetKeyDown(_gameData.FireLaserKey)) inputData.IsFiringLaser = true;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : DamagingObject
 {
-    protected override void TriggerEnterAction(Collider collision)
+    protected override void TriggerEnterAction(Collider2D collision)
     {
         base.TriggerEnterAction(collision);
 

@@ -4,6 +4,7 @@ using UniRx;
 using UniRx.Triggers;
 using System.Collections;
 using System.Collections.Generic;
+using Voody.UniLeo;
 
 public class DamagingObject : MonoBehaviour
 {
@@ -14,19 +15,28 @@ public class DamagingObject : MonoBehaviour
 
     CompositeDisposable disposables = new CompositeDisposable();
 
-    protected virtual void TriggerEnterAction(Collider collision)
+    private void Start()
+    {
+        _world = WorldHandler.GetWorld();
+    }
+
+    protected virtual void TriggerEnterAction(Collider2D collision)
     {
         //Debug.Log("<color=orange>Bullet hitted </color>" + collision.name, collision);
         var entity =  _world.NewEntity();
+        entity.Get<TransformComponent>().MyTransfrom = collision.transform;
         ref var damage = ref entity.Get<DamageComponent>();
 
         damage.Damage = Damage;
         damage.Damaged = collision.transform;
+
+        //Debug.Log("Damaged " + collision.name, collision.transform);
     }
 
     public virtual void Spawn()
     {
-        this.OnTriggerEnterAsObservable().Subscribe(o => TriggerEnterAction(o)).AddTo(disposables);
+        this.OnTriggerEnter2DAsObservable().Subscribe(o => TriggerEnterAction(o)).AddTo(disposables);
+        //Debug.Log("Damage object spawned", this.transform);
     }
 
 

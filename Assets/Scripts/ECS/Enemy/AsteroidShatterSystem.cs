@@ -24,9 +24,10 @@ sealed class AsteroidShatterSystem : IEcsRunSystem
         {
             ref var shatter = ref _shaterringFilter.Get1(i).ShatterPositions;
 
-            int smallCount = Random.Range(0, shatter.Count);
+            int smallCount = Random.Range(0, _gameData.MaxSmallAsteroids + 1);
 
-            Transform trans = _smallAsteroidFactory.Spawn().transform;
+            AsteroidEcs asteroid = _smallAsteroidFactory.Spawn();
+            Transform trans = asteroid.transform;
 
             List<Transform> copyShatter = new List<Transform>();
 
@@ -43,8 +44,9 @@ sealed class AsteroidShatterSystem : IEcsRunSystem
 
                 trans.position = copyShatter[randomIndex].position;
 
-                var entity = _world.NewEntity();
-                entity.Get<DirectionComponent>().Direction = copyShatter[randomIndex].position - origin.position;
+                asteroid.Initialize();
+                var entity = asteroid.GetEntity();
+                entity.Get<ConstantDirection>().Direction = copyShatter[randomIndex].position - origin.position;
                 entity.Get<MoveSpeedComponent>().Speed = _gameData.SmallAsteroidSpeed;
 
                 copyShatter.RemoveAt(randomIndex);

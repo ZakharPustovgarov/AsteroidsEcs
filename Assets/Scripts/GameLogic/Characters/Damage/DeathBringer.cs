@@ -28,6 +28,7 @@ public class DeathBringer : MonoBehaviour
         if (!_isAlive) return;
         _isAlive = false;
         DiedEvent?.Invoke();
+        Debug.Log(name + " died");
         if (withDestroy) Observable.FromCoroutine(_ => Dying()).Subscribe().AddTo(this);
     }
 

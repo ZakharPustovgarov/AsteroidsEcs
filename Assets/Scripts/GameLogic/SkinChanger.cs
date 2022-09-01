@@ -17,7 +17,9 @@ public class SkinChanger : MonoBehaviour
     {
         _world = WorldHandler.GetWorld();
 
-        _world.NewEntity().Get<SkinChangerComponent>().SkinChanger = this;
+        var changer = _world.NewEntity().Get<SkinChangerComponent>();
+        changer.SkinChanger = this;
+        changer.GraphicType = GraphicType.NONE;
     }
 
     public void ChangeGraphic(GraphicType type)

@@ -6,8 +6,8 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 sealed class DamageSystem : IEcsRunSystem
 {
-    private readonly EcsFilter<IDComponent, HealthComponent>.Exclude<IsDeathTag> _entityHealthFilter = null;
-    private readonly EcsFilter<IDComponent, DamageComponent> _damageFilter = null;
+    private readonly EcsFilter<TransformComponent, HealthComponent>.Exclude<IsDeathTag> _entityHealthFilter = null;
+    private readonly EcsFilter<TransformComponent, DamageComponent> _damageFilter = null;
 
 
     public void Run()
@@ -24,7 +24,7 @@ sealed class DamageSystem : IEcsRunSystem
                 ref var id2 = ref _entityHealthFilter.Get1(j);
                 ref var health = ref _entityHealthFilter.Get2(j);
 
-                if (id1.ID == id2.ID)
+                if (id1.MyTransfrom == id2.MyTransfrom)
                 {
                    health.CurrentHealth -= damage.Damage;
 

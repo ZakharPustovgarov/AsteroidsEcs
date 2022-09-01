@@ -12,6 +12,8 @@ sealed class LaserStopSystem : IEcsRunSystem
 
         foreach(var i in _laserEndEvent)
         {
+            Laser laser = _laserEndEvent.Get1(i).Laser;
+            if (laser == null) continue;
             _laserFactory.Despawn(_laserEndEvent.Get1(i).Laser);
         }
     }
