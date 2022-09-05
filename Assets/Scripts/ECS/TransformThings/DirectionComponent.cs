@@ -3,4 +3,5 @@
 public struct DirectionComponent
 {
     public Vector3 Direction;
+    public bool IsConstant;
 }

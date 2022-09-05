@@ -1,9 +1,9 @@
-using Leopotam.Ecs;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using Voody.UniLeo;
+using Leopotam.Ecs;
 
 
 public class EcsGameStartup : MonoBehaviour
@@ -27,11 +27,9 @@ public class EcsGameStartup : MonoBehaviour
 
         InitializedFactories();
 
-        _systems.ConvertScene();
-
         AddInjections();
-        AddOneFrames();
         AddSystems();
+        AddOneFrames();
 
         _systems.Init();
 
@@ -88,12 +86,9 @@ public class EcsGameStartup : MonoBehaviour
     private void AddOneFrames()
     {
         _systems
-            .OneFrame<DirectionComponent>()
             .OneFrame<RotateComponent>()
-            .OneFrame<AsteroidSpawnCountEndEvent>()
-            .OneFrame<UfoSpawnCountEndEvent>()
-            .OneFrame<LaserRechargeCountEnd>()
             .OneFrame<GunFireEvent>()
+            .OneFrame<CountEndEvent>()
             ;
     }
 

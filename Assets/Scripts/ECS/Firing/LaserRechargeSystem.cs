@@ -17,13 +17,14 @@ sealed class LaserRechargeSystem : IEcsRunSystem
             ref var entity = ref _fireFilter.GetEntity(i);
             ref var laser = ref _fireFilter.Get1(i);
 
-            if (entity.Has<LaserRechargeCountEnd>())
+            if (entity.Has<CountEndEvent>() && entity.Has<LaserRechargeTag>())
             {
                 laser.Count++;
 
                 if(laser.Count < laser.MaxCount)
                 {
-                    entity.Get<LaserRechargeCounterComponent>().Duration = _gameData.LaserRechargeTime;
+                    entity.Get<CounterComponent>().Duration = _gameData.LaserRechargeTime;
+                    entity.Get<LaserRechargeTag>();
                 }
 
                 //text.Text.text = Convert.ToString(laser.Count);
@@ -37,7 +38,11 @@ sealed class LaserRechargeSystem : IEcsRunSystem
                     else
                     {
                         laser.Count--;
-                        if(!entity.Has<LaserRechargeCounterComponent>()) entity.Get<LaserRechargeCounterComponent>().Duration = _gameData.LaserRechargeTime;
+                        if (!entity.Has<LaserRechargeCounterComponent>())
+                        {
+                            entity.Get<CounterComponent>().Duration = _gameData.LaserRechargeTime;
+                            entity.Get<LaserRechargeTag>();
+                        }
 
                         //text.Text.text = Convert.ToString(laser.Count);
                     }

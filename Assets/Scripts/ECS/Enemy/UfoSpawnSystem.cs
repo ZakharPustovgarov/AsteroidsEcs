@@ -5,16 +5,21 @@ using Random = UnityEngine.Random;
 
 sealed class UfoSpawnSystem : IEcsRunSystem, IEcsInitSystem
 {
-    private readonly EcsFilter<UfoSpawnCountEndEvent> _spawnFilter = null;
+    private readonly EcsFilter<CountEndEvent, UfoSpawnTag> _spawnFilter = null;
     private readonly EcsFilter<SpawnPointTag, TransformComponent> _spawnPointsFilter = null;
 
     private EcsWorld _world = null;
     private GameData _gameData = null;
     private ObjectFactoryWithPool<UfoEcs> _ufoFactory = null;
 
+    private EcsEntity _entity;
+
     public void Init()
     {
-        _world.NewEntity().Get<UfoSpawnCounterComponent>().Duration = _gameData.UfoSpawnTime;
+        _entity = _world.NewEntity();
+
+        _entity.Get<CounterComponent>().Duration = _gameData.UfoSpawnTime;
+        _entity.Get<UfoSpawnTag>();
     }
 
     public void Run()
@@ -37,7 +42,7 @@ sealed class UfoSpawnSystem : IEcsRunSystem, IEcsInitSystem
             trans.position = spawnPoints[randomIndex].position;
             spawnPoints.RemoveAt(randomIndex);
 
-            _world.NewEntity().Get<UfoSpawnCounterComponent>().Duration = _gameData.UfoSpawnTime;
+            _entity.Get<CounterComponent>().Duration = _gameData.UfoSpawnTime;
         }
     }
 }

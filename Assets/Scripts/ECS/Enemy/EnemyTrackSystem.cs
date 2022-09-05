@@ -20,7 +20,10 @@ sealed class EnemyTrackSystem : IEcsRunSystem
             ref var entity = ref _ufoFilter.GetEntity(i);
             ref var ufoTrans = ref _ufoFilter.Get2(i).MyTransfrom;
 
-            entity.Get<DirectionComponent>().Direction = Vector3.Normalize(playerTrans.position - ufoTrans.position);
+            ref var dir = ref entity.Get<DirectionComponent>();
+            dir.Direction = Vector3.Normalize(playerTrans.position - ufoTrans.position);
+            dir.IsConstant = false;
+
             entity.Get<MoveSpeedComponent>().Speed = _gameData.UfoFlyingSpeed;
         }
     }

@@ -5,12 +5,14 @@ using Random = UnityEngine.Random;
 
 sealed class AsteroidSpawnSystem : IEcsRunSystem, IEcsInitSystem
 {
-    private readonly EcsFilter<AsteroidSpawnCountEndEvent> _spawnFilter = null;
+    private readonly EcsFilter<CountEndEvent, AsteroidSpawnTag> _spawnFilter = null;
     private readonly EcsFilter<SpawnPointTag, TransformComponent> _spawnPointsFilter = null;
 
     private EcsWorld _world = null;
     private GameData _gameData = null;
     private ObjectFactoryWithPool<AsteroidEcs> _asteroidFactory = null;
+
+    private EcsEntity _entity;
 
     public AsteroidSpawnSystem(ObjectFactoryWithPool<AsteroidEcs> asteroidFactory)
     {
@@ -19,7 +21,9 @@ sealed class AsteroidSpawnSystem : IEcsRunSystem, IEcsInitSystem
 
     public void Init()
     {
-        _world.NewEntity().Get<AsteroidSpawnCounterComponent>().Duration = _gameData.AsteroidSpawnTime;
+        _entity = _world.NewEntity();
+        _entity.Get<CounterComponent>().Duration = _gameData.AsteroidSpawnTime;
+        _entity.Get<AsteroidSpawnTag>();
     }
 
     public void Run()
@@ -51,12 +55,16 @@ sealed class AsteroidSpawnSystem : IEcsRunSystem, IEcsInitSystem
 
             asteroid.Initialize();
             var entity = asteroid.GetEntity();
-            entity.Get<ConstantDirection>().Direction = Vector3.Normalize(spawnPoints[randomDirection].position - spawnPoints[randomIndex].position);
+
+            ref var dir = ref entity.Get<DirectionComponent>();
+            dir.Direction = Vector3.Normalize(spawnPoints[randomDirection].position - spawnPoints[randomIndex].position);
+            dir.IsConstant = true;
+
             entity.Get<MoveSpeedComponent>().Speed = _gameData.BigAsteroidSpeed;
 
             spawnPoints.RemoveAt(randomIndex);
 
-            _world.NewEntity().Get<AsteroidSpawnCounterComponent>().Duration = _gameData.AsteroidSpawnTime;
+            _entity.Get<CounterComponent>().Duration = _gameData.AsteroidSpawnTime;
         }
     }
 }

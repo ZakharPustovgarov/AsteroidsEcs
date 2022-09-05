@@ -28,7 +28,10 @@ sealed class PlayerKeyboardInputSystem : IEcsRunSystem
 
             if (inputData.IsMovingForward)
             {
-                entity.Get<DirectionComponent>().Direction = _playerFilter.Get2(i).MyTransfrom.up;
+                ref var dir = ref entity.Get<DirectionComponent>();
+                dir.Direction = _playerFilter.Get2(i).MyTransfrom.up;
+                dir.IsConstant = false;
+
                 entity.Get<MoveSpeedComponent>().Speed = _gameData.FlyingSpeed;
             }
 
