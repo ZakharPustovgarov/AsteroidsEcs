@@ -54,7 +54,9 @@ sealed class GunFireSystem : IEcsRunSystem
         bulletEntity.Get<BulletLifeTime>().Time = 5f;
         bulletEntity.Get<BulletComponent>().Speed = _gameData.BulletFlyingSpeed;
         bulletEntity.Get<BulletComponent>().Bullet = bullet;
-        bulletEntity.Get<ConstantDirection>().Direction = Vector3.Normalize(gun.Muzzle.position - gun.Barrel.position);
+        ref var dir = ref bulletEntity.Get<DirectionComponent>();
+        dir.Direction = Vector3.Normalize(gun.Muzzle.position - gun.Barrel.position);
+        dir.IsConstant = true;
 
         bullet.Spawn();
     }

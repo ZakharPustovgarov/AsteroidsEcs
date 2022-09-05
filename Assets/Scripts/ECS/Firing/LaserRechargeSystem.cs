@@ -38,7 +38,7 @@ sealed class LaserRechargeSystem : IEcsRunSystem
                     else
                     {
                         laser.Count--;
-                        if (!entity.Has<LaserRechargeCounterComponent>())
+                        if (!entity.Has<CounterComponent>() && !entity.Has<LaserRechargeTag>())
                         {
                             entity.Get<CounterComponent>().Duration = _gameData.LaserRechargeTime;
                             entity.Get<LaserRechargeTag>();
